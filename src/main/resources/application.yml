@@ -1,0 +1,12 @@
+spring.jpa.hibernate.ddl-auto: none
+spring.datasource.url: jdbc:hsqldb:file:addon-db # Use a file-based backing store for HSQL
+
+server:
+  port: 3000
+
+addon:
+  key: JiraScrumAgent
+  base-url: https://localhost:${local.server.port}/home
+
+logging.level.com.atlassian.connect.spring: DEBUG
+

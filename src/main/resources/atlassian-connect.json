@@ -1,0 +1,31 @@
+{
+  "key": "${addon.key}",
+  "baseUrl": "https://4df531ad.ngrok.io",
+  "name": "Jira Scrum Agent",
+  "vendor": {
+    "name": "Lymantridae, Inc."
+  },
+  "authentication": {
+    "type": "jwt"
+  },
+  "lifecycle": {
+    "installed": "/installed",
+    "uninstalled": "/uninstalled"
+  },
+  "scopes": ["READ"],
+  "apiMigrations": {
+    "gdpr": true
+  },
+  "modules": {
+    "generalPages": [
+      {
+        "url": "/index.html",
+        "key": "home",
+        "location": "system.top.navigation.bar",
+        "name": {
+          "value": "JiraScrumAgent"
+        }
+      }
+    ]
+  }
+}
