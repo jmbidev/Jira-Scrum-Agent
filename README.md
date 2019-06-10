@@ -7,7 +7,7 @@ Getting Started  ->  https://developer.atlassian.com/cloud/jira/platform/getting
 Qué se necesita: 
 
 - IntelliJ con los plugins de maven y nodejs y spring (aunque se puede tener maven por separado)
-Si tenemos IntelliJ con los plugins directamente importamos el proyecto (seleccionar maven).
+Si tenemos IntelliJ con los plugins directamente importamos el proyecto.
 Si no tenemos IntelliJ tambien se puede hacer desde eclipse (averiguar cómo)
 
 - nodejs
@@ -23,7 +23,7 @@ Para cargar el proyecto:
 
     git clone https://github.com/jmbidev/Jira-Scrum-Agent
 
-    2° Paso: importar el proyecto desde IntelliJ
+    2° Paso: importar el proyecto desde IntelliJ (Seleccionando maven)
 
     Este paso suele tardar bastante porque descarga todas las librerias necesarias
     
