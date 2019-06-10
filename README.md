@@ -1,7 +1,8 @@
 # Jira-Scrum-Agent
 
 Donde conseguir la info necesaria para consultar los puntos más adelante: 
-    Getting Started  ->  https://developer.atlassian.com/cloud/jira/platform/getting-started/
+
+Getting Started  ->  https://developer.atlassian.com/cloud/jira/platform/getting-started/
 
 Qué se necesita: 
 
