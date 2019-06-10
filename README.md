@@ -27,11 +27,12 @@ Para compilar el proyecto:
     Esto lo podemos hacer desde el IntelliJ sin problemas
     
 Antes de poder incluir la app a Jira:
+
     1° Paso: el administrador del proyecto de Jira se tiene que crear una cuenta en Atlassian.
-    
     2° Paso: hay que habilitar el modo desarrollador en las configuraciones.
 
 Para añadir la app a Jira:  
+    
     1° Paso: ejecutar en cmd
         ngrok http localhost:3000 
        Esto nos permite vincular esa direccion local a una direccion pública y ahí mismo nos va a aparecer direcciones mapeadas de ngrok
