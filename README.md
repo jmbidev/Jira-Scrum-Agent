@@ -1,5 +1,8 @@
 # Jira-Scrum-Agent
 
+Donde conseguir la info necesaria para consultar los puntos más adelante: 
+    Getting Started  ->  https://developer.atlassian.com/cloud/jira/platform/getting-started/
+
 Qué se necesita: 
 
 - IntelliJ con los plugins de maven y nodejs y spring (aunque se puede tener maven por separado)
@@ -10,7 +13,7 @@ Si no tenemos IntelliJ tambien se puede hacer desde eclipse (averiguar cómo)
 
 - git
 
-- ngrok
+- ngrok (Mirar: Step 3. Set up your local development environment en el getting started)
 
 Para cargar el proyecto:
 
@@ -26,17 +29,20 @@ Para cargar el proyecto:
 Para compilar el proyecto:
     Esto lo podemos hacer desde el IntelliJ sin problemas
     
-Antes de poder incluir la app a Jira:
+Antes de poder incluir la app a Jira: (se puede seguir desde el getting-started de arriba)
 
     1° Paso: el administrador del proyecto de Jira se tiene que crear una cuenta en Atlassian.
+       (mirar Step 1. Get an Atlassian Cloud instance en el getting started)
     2° Paso: hay que habilitar el modo desarrollador en las configuraciones.
+       (mirar Step 2. Enable development mode)
 
 Para añadir la app a Jira:  
     
     1° Paso: ejecutar en cmd
        - ngrok http localhost:3000 
        Esto nos permite vincular esa direccion local a una direccion pública y ahí mismo nos va a aparecer 
-       direcciones mapeadas de ngrok
+       direcciones mapeadas de ngrok. (Mirar: Step 2: Make the app files available to the internet en el
+       getting started).
        
     2° Paso: en la pestaña cmd que ejecutamos ngrok copiar la direccion https (aparece tambien la http pero 
        no la necesitamos).
@@ -52,6 +58,7 @@ Para añadir la app a Jira:
     5° Paso: entramos en la app de Jira y vamos a Configuracion->Aplicaciones->ManageApps->Subir aplicación
        En el campo que nos aparece copiamos la dir: https://4df531ad.ngrok.io/atlassian-connect.json
        Reemplazar https://4df531ad.ngrok.io por la dir que les tocó a ustedes y apretar upload.
+       (Mirar: Step 3: Install and test your app en el getting started.)
       
     6° Si todo salio bien les va a decir que está Ok y si apretan el logo de Jira (arriba a la izquierda) los lleva 
        al inicio y deberían poder ver un enlace a JiraScrumAgent en la barra. Si entran deberian poder ver el mensaje 
