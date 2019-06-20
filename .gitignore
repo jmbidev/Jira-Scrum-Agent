@@ -1,0 +1,6 @@
+.idea/*
+target/*
+JiraScrumAgent.iml
+addon-db.*
+src/main/resources/public/node_modules/*
+src/main/resources/public/package-lock.json
