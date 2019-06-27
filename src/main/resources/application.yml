@@ -6,7 +6,7 @@ server:
 
 addon:
   key: JiraScrumAgent
-  base-url: https://localhost:${local.server.port}/home
+  base-url: https://localhost:${local.server.port}
 
 logging.level.com.atlassian.connect.spring: DEBUG
 
