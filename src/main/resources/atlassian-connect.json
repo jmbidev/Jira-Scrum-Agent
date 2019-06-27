@@ -1,6 +1,6 @@
 {
   "key": "${addon.key}",
-  "baseUrl": "https://4df531ad.ngrok.io",
+  "baseUrl": "https://b282d26d.ngrok.io",
   "name": "Jira Scrum Agent",
   "vendor": {
     "name": "Lymantridae, Inc."
@@ -19,12 +19,140 @@
   "modules": {
     "generalPages": [
       {
-        "url": "/index.html",
+        "url": "/home",
         "key": "home",
         "location": "system.top.navigation.bar",
         "name": {
           "value": "JiraScrumAgent"
         }
+      }
+    ],
+    "webhooks": [
+      {
+        "event": "jira:issue_created",
+        "url": "/webhooks/issue",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "jira:issue_modified",
+        "url": "/webhooks/issue",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "jira:issue_deleted",
+        "url": "/webhooks/issue",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "project_created",
+        "url": "/webhooks/project",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "project_updated",
+        "url": "/webhooks/project",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "project_deleted",
+        "url": "/webhooks/project",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "user_created",
+        "url": "/webhooks/user",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "user_updated",
+        "url": "/webhooks/user",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "user_deleted",
+        "url": "/webhooks/user",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "sprint_created",
+        "url": "/webhooks/sprint",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "sprint_deleted",
+        "url": "/webhooks/sprint",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "sprint_updated",
+        "url": "/webhooks/sprint",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "sprint_started",
+        "url": "/webhooks/sprint",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
+        "event": "sprint_closed",
+        "url": "/webhooks/sprint",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
       }
     ]
   }
