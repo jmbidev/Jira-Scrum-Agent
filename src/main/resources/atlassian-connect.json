@@ -1,6 +1,6 @@
 {
   "key": "${addon.key}",
-  "baseUrl": "https://b282d26d.ngrok.io",
+  "baseUrl": "https://b0e5add9.ngrok.io",
   "name": "Jira Scrum Agent",
   "vendor": {
     "name": "Lymantridae, Inc."
@@ -12,7 +12,13 @@
     "installed": "/installed",
     "uninstalled": "/uninstalled"
   },
-  "scopes": ["READ"],
+  "scopes" : [
+      "READ",
+      "WRITE",
+      "DELETE",
+      "ADMIN"
+    ]
+  ,
   "apiMigrations": {
     "gdpr": true
   },
@@ -29,6 +35,15 @@
     ],
     "webhooks": [
       {
+        "event": "host_settings_saved",
+        "url": "/webhooks/issue",
+        "excludeBody": false,
+        "propertyKeys": [
+          "propertyKey",
+          "otherPropertyKey"
+        ]
+      },
+      {
         "event": "jira:issue_created",
         "url": "/webhooks/issue",
         "excludeBody": false,
@@ -38,7 +53,7 @@
         ]
       },
       {
-        "event": "jira:issue_modified",
+        "event": "jira:issue_updated",
         "url": "/webhooks/issue",
         "excludeBody": false,
         "propertyKeys": [
