@@ -10,6 +10,7 @@ import application.services.RestService;
 import com.atlassian.connect.spring.IgnoreJwt;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -63,10 +64,8 @@ public class EventsController {
     public ResponseEntity project(@RequestBody String body) {
         System.out.println("Estoy en project");
         System.out.println(body);
-
         String url = "http://localhost:8080/event/create-project";
         System.out.println(requestService.sendRequest(url,body));
-
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
