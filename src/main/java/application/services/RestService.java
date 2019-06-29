@@ -122,7 +122,7 @@ public class RestService {
             return mapper.writeValueAsString(response);
 
         } catch (Exception e){
-            System.out.println("RestService -> getProjectInProjectByRol exception: " + e.getMessage());
+            System.out.println("RestService -> getUsersInProjectByRol exception: " + e.getMessage());
             return "";
         }
     }

@@ -47,6 +47,8 @@ public class Issue {
     private String aggregateTimeEstimate;
     private String summary;
     private String dueDate;
+    private String sprintId;
+    private String storyPoints;
     private List<Map<String, Object>> changeLog;
 
 
@@ -54,13 +56,17 @@ public class Issue {
     @JsonProperty("changelog")
     private void unpackNested2(Map<String, Object> changeLog){
         List<Object> changeItems = (List<Object>)changeLog.get("items");
-        System.out.println(changeItems);
         this.changeLog = new LinkedList<>();
         if (changeItems != null){
             for (Object o: changeItems) {
                 Map<String, Object> aux = (Map<String,Object>) o;
                 if (aux != null) {
                     this.changeLog.add(aux);
+                    if (aux.containsKey("field")){
+                        if (((String)aux.get("field")).equals("Sprint")){
+                            this.sprintId = (String)aux.get("to");
+                        }
+                    }
                 }
             }
         }
@@ -81,7 +87,8 @@ public class Issue {
             this.projectName = (String)project.get("name");
         }
 
-        this.timeSpent = (String)fields.get("timespent");
+        if (fields.get("timespent") != null)
+            this.timeSpent = fields.get("timespent").toString();
         this.aggregateTimeSpent = (String)fields.get("aggregateTimeSpent");
         this.resolution = (String)fields.get("resolution");
         this.resolutionDate = (String)fields.get("resolutiondate");
@@ -94,7 +101,8 @@ public class Issue {
         this.issueType = (String)fields.get("issueType");
         this.labels = (List<String>) fields.get("labels");
         this.aggregateTimeOriginalEstimate = (String)fields.get("aggregateTimeOriginalEstimate");
-        this.timeEstimate = (String)fields.get("timeestimate");
+        if (fields.get("timeestimate") != null)
+            this.timeEstimate = fields.get("timeestimate").toString();
         Map<String, Object> assignee = (Map<String, Object>)fields.get("assignee");
         if (assignee != null) {
             this.assigneeId = (String) assignee.get("accountId");
@@ -105,12 +113,17 @@ public class Issue {
         Map<String, Object> status = (Map<String, Object>)fields.get("status");
         this.statusId = (String)status.get("id");
         this.statusName = (String)status.get("name");
-        this.statusCategory = status.get("statusCategory").toString();
-        this.timeOriginalEstimate = (String)fields.get("timeoriginalestimate");
+        if (fields.get("statusCategory") != null)
+            this.statusCategory = status.get("statusCategory").toString();
+        if (fields.get("timeoriginalestimate") != null)
+            this.timeOriginalEstimate = fields.get("timeoriginalestimate").toString();
         this.description = (String) fields.get("description");
-        this.aggregateTimeEstimate = (String) fields.get("aggregatetimeestimate");
+        if (fields.get("aggregatetimeestimate") != null)
+            this.aggregateTimeEstimate = fields.get("aggregatetimeestimate").toString();
         this.summary = (String) fields.get("summary");
         this.dueDate = (String) fields.get("duedate");
+        if (fields.get("customfield_10016") != null)
+            this.storyPoints = fields.get("customfield_10016").toString();
     }
 
     public String getTimestamp() {
@@ -359,5 +372,13 @@ public class Issue {
 
     public void setChangeLog(List<Map<String, Object>> changeLog) {
         this.changeLog = changeLog;
+    }
+
+    public String getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(String sprintId) {
+        this.sprintId = sprintId;
     }
 }

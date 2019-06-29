@@ -35,6 +35,7 @@ public class EventsController {
         if (index > 0) {
             body = body.substring(0, index);
         }
+        System.out.println(body);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
