@@ -24,6 +24,16 @@ public class RestService {
 
     }
 
+    public String getAllIssues(String host){
+        try {
+            String response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/search", String.class);
+            return response;
+        } catch (Exception e){
+            System.out.println("RestService -> getAllIsues exception: " + e.getMessage());
+            return "";
+        }
+    }
+
     public String getUserByUserName(String username, String host){
         try {
             String response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/user?username=" + username, String.class);
@@ -57,7 +67,7 @@ public class RestService {
             String response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/user/bulk?" + params, String.class);
             return response;
         } catch (Exception e){
-            System.out.println("RestService -> getUserByAccountId exception: " + e.getMessage());
+            System.out.println("RestService -> getUsersInBulk exception: " + e.getMessage());
             return "";
         }
     }
@@ -92,7 +102,7 @@ public class RestService {
             }
             return result;
         } catch (Exception e){
-            System.out.println("RestService -> getProjectByProjectId exception: " + e.getMessage());
+            System.out.println("RestService -> getProjects exception: " + e.getMessage());
             return new LinkedList<Project>();
         }
     }
@@ -112,7 +122,7 @@ public class RestService {
             return mapper.writeValueAsString(response);
 
         } catch (Exception e){
-            System.out.println("RestService -> getProjectByProjectId exception: " + e.getMessage());
+            System.out.println("RestService -> getProjectInProjectByRol exception: " + e.getMessage());
             return "";
         }
     }
@@ -138,9 +148,31 @@ public class RestService {
             }
             return result;
         } catch (Exception e){
-            System.out.println("RestService -> getProjectByProjectId exception: " + e.getMessage());
+            System.out.println("RestService -> getAllRoles exception: " + e.getMessage());
             e.printStackTrace();
         }
         return new LinkedList<>();
+    }
+
+    public String getAllProjectsRoles(String host){
+        List<ProjectRole> roles = this.getAllRoles(host);
+        List<Project> projects = this.getProjects(host);
+        String mapped= "\"usersByProjectRole\":[";
+        for (ProjectRole role : roles ) {
+            if (role != null && !role.getName().equals("atlassian-addons-project-access")) {
+                for (Project project : projects) {
+                    if (project != null) {
+                        String aux = this.getUsersInProjectByRol(host, project.getId(), role.getId());
+                        if (aux != "") {
+                            mapped += aux;
+                            mapped += ",";
+                        }
+                    }
+                }
+            }
+        }
+        mapped = mapped.substring(0, mapped.length()-1);
+        mapped += "]";
+        return mapped;
     }
 }

@@ -31,29 +31,19 @@ public class EventsController {
     @RequestMapping(value = "/webhooks/issue", consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity issue(@RequestBody String body){
         System.out.println("Estoy en issue");
+        int index = body.indexOf("{field=");
+        if (index > 0) {
+            body = body.substring(0, index);
+        }
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             Issue issue = mapper.readValue(body, Issue.class);
-            //System.out.println(issue.getId());
             String mapped = "{ \"issue\":" + mapper.writeValueAsString(issue);
-            //System.out.println(mapped);
-            List<ProjectRole> roles = restService.getAllRoles(issue.getHost());
-            System.out.println(roles);
-            List<Project> projects = restService.getProjects(issue.getHost());
-            System.out.println(projects);
-            mapped+= ",\"usersByProjectRole\":[";
-            for (ProjectRole role : roles ) {
-                if (role != null && !role.getName().equals("atlassian-addons-project-access")) {
-                    for (Project project : projects) {
-                        mapped += restService.getUsersInProjectByRol(issue.getHost(), project.getId(), role.getId());
-                        mapped += ",";
-                    }
-                }
-            }
-            mapped = mapped.substring(0, mapped.length()-1);
-            mapped += "]}";
+            mapped += ",";
+            mapped += restService.getAllProjectsRoles(issue.getHost());
+            mapped += "}";
             System.out.println(mapped);
         } catch(Exception e){
             e.printStackTrace();

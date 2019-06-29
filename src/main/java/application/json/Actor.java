@@ -12,10 +12,6 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Actor {
-    @Autowired
-    RestService restService;
-    @Autowired
-    CurrentUserService currentUserService;
 
     private String id;
     private String name;

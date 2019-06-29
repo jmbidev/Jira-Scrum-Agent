@@ -15,10 +15,6 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectRole {
-    @Autowired
-    CurrentUserService currentUserService;
-    @Autowired
-    RestService restService;
 
     private String self;
     private String id;
@@ -66,21 +62,5 @@ public class ProjectRole {
         this.roleActors = actors;
     }
 
-    @SuppressWarnings("unchecked")
-    @JsonProperty("actors")
-    private void unpackNested(List<Object> actors) {
-        this.roleActors = new LinkedList<>();
-        for (Object o: actors) {
-            Map<String,Object> actorMap = (Map<String,Object>) o;
-            Actor actor = new Actor();
-            actor.setId((String)actorMap.get("id"));
-            actor.setDisplayName((String)actorMap.get("displayName"));
-            actor.setName((String)actorMap.get("name"));
-            actor.setType((String)actorMap.get("type"));
-            Map<String, String> actorUser = (Map<String, String>) actorMap.get("actorUser");
-            actor.setActorUser(restService.getUserByAccountId(actorUser.get("accountId"), currentUserService.getUser().getHost().getBaseUrl()));
 
-            this.roleActors.add(actor);
-        }
-    }
 }

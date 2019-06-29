@@ -6,7 +6,10 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonIgnoreType;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,8 +47,24 @@ public class Issue {
     private String aggregateTimeEstimate;
     private String summary;
     private String dueDate;
+    private List<Map<String, Object>> changeLog;
 
 
+    @SuppressWarnings("unchecked")
+    @JsonProperty("changelog")
+    private void unpackNested2(Map<String, Object> changeLog){
+        List<Object> changeItems = (List<Object>)changeLog.get("items");
+        System.out.println(changeItems);
+        this.changeLog = new LinkedList<>();
+        if (changeItems != null){
+            for (Object o: changeItems) {
+                Map<String, Object> aux = (Map<String,Object>) o;
+                if (aux != null) {
+                    this.changeLog.add(aux);
+                }
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     @JsonProperty("issue")
@@ -77,10 +96,12 @@ public class Issue {
         this.aggregateTimeOriginalEstimate = (String)fields.get("aggregateTimeOriginalEstimate");
         this.timeEstimate = (String)fields.get("timeestimate");
         Map<String, Object> assignee = (Map<String, Object>)fields.get("assignee");
-        this.assigneeId = (String)assignee.get("accountId");
-        this.assigneeEmail = (String)assignee.get("emailAddress");
-        this.assigneeDisplayName = (String)assignee.get("displayName");
-        this.updatedDateTime = (String)fields.get("updated");
+        if (assignee != null) {
+            this.assigneeId = (String) assignee.get("accountId");
+            this.assigneeEmail = (String) assignee.get("emailAddress");
+            this.assigneeDisplayName = (String) assignee.get("displayName");
+        }
+        this.updatedDateTime = (String) fields.get("updated");
         Map<String, Object> status = (Map<String, Object>)fields.get("status");
         this.statusId = (String)status.get("id");
         this.statusName = (String)status.get("name");
@@ -330,5 +351,13 @@ public class Issue {
 
     public void setResolutionDate(String resolutionDate) {
         this.resolutionDate = resolutionDate;
+    }
+
+    public List<Map<String, Object>> getChangeLog() {
+        return changeLog;
+    }
+
+    public void setChangeLog(List<Map<String, Object>> changeLog) {
+        this.changeLog = changeLog;
     }
 }
