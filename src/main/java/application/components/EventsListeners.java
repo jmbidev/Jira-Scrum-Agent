@@ -43,5 +43,7 @@ public class EventsListeners {
         String issues = rs.getAllIssues(event.getHost().getBaseUrl());
         System.out.println(issues);
 
+
+
     }
 }
