@@ -11,7 +11,6 @@ public class RequestService {
 
 
     public String sendRequest(String url, String body){
-
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
