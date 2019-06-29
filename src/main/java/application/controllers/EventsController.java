@@ -8,6 +8,7 @@ import application.services.RestService;
 
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,7 +56,17 @@ public class EventsController {
     @ResponseBody
     public ResponseEntity project(@RequestBody String body) {
         System.out.println("Estoy en project");
-        System.out.println(body);
+
+        JSONObject obj = new JSONObject(body);
+        Integer Id = obj.getJSONObject("project").getInt("id");
+        String Key = obj.getJSONObject("project").getString("key");
+        String name = obj.getJSONObject("project").getString("name");
+        System.out.println("el id es : "+Id+" la key es : "+Key+" el nombre es : "+name);
+        Project project = new Project();
+        project.setId(Id.toString());
+        project.setKey(Key);
+        project.setName(name);
+
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 

@@ -1,6 +1,6 @@
 package application.json;
 
-import javafx.util.Pair;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
