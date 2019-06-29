@@ -19,6 +19,9 @@ public class RestService {
     @Autowired
     AtlassianHostRestClients rc;
 
+    @Autowired
+    CacheService cacheService;
+
     @Async
     public void requestUsers(String host){
 
