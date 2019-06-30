@@ -52,7 +52,7 @@ public class EventsController {
             mapped += "}";
             System.out.println(mapped);
             String url = "http://localhost:8080/event/update-issue";
-            System.out.println(requestService.sendRequest(url, body));
+            System.out.println(requestService.sendRequest(url, mapped));
         } catch(Exception e){
             e.printStackTrace();
         }

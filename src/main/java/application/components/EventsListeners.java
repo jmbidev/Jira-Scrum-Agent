@@ -48,7 +48,7 @@ public class EventsListeners {
         System.out.println(requestService.sendRequest(url,projectsAndRoles));
 
         String issues = rs.getAllIssues(event.getHost().getBaseUrl());
-        //System.out.println(issues);
+        System.out.println(issues);
 
         url = "http://localhost:8080/event/initialize-issues";
         System.out.println(requestService.sendRequest(url,issues));

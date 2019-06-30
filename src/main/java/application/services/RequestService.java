@@ -17,7 +17,6 @@ public class RequestService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("charset", "utf-8");
 
         HttpEntity<String> entity = new HttpEntity<String>(body, headers);
         String answer = restTemplate.postForObject(url, entity, String.class);

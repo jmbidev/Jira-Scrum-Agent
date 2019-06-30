@@ -129,7 +129,6 @@ public class RestService {
                 response = (ProjectRole)cacheService.get(in);
             }else {
                 response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/project/"+ project+ "/role/" + rol, ProjectRole.class);
-                String aux = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/project/"+ project+ "/role/" + rol, String.class);
                 cacheService.add(in,response);// puedo qe haya errores con esto
             }
             ObjectMapper mapper = new ObjectMapper();
