@@ -1,6 +1,6 @@
 {
   "key": "${addon.key}",
-  "baseUrl": "https://eb643e1a.ngrok.io",
+  "baseUrl": "https://d37e8ddc.ngrok.io",
   "name": "Jira Scrum Agent",
   "vendor": {
     "name": "Lymantridae, Inc."

@@ -381,4 +381,12 @@ public class Issue {
     public void setSprintId(String sprintId) {
         this.sprintId = sprintId;
     }
+
+    public String getStoryPoints() {
+        return storyPoints;
+    }
+
+    public void setStoryPoints(String storyPoints) {
+        this.storyPoints = storyPoints;
+    }
 }
