@@ -19,6 +19,9 @@ public class RestService {
     @Autowired
     AtlassianHostRestClients rc;
 
+    @Autowired
+    CacheService cacheService;
+
     @Async
     public void requestUsers(String host){
 
@@ -45,9 +48,17 @@ public class RestService {
     }
 
     public User getUserByAccountId(String accountId, String host){
+        // en este tmb
         System.out.println("Bringing user "+ accountId);
         try {
-            User response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/user?accountId=" + accountId, User.class);
+            String in = host + "/rest/api/3/user?accountId=" + accountId;
+            User response;
+            if (cacheService.existe(in)){
+                response = (User) cacheService.get(in);
+            }else {
+                response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/user?accountId=" + accountId, User.class);
+                cacheService.add(in,response);
+            }
             return response;
         } catch (Exception e){
             System.out.println("RestService -> getUserByAccountId exception: " + e.getMessage());
@@ -84,7 +95,8 @@ public class RestService {
 
     public List<Project> getProjects(String host){
         try {
-            String response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/project" , String.class);
+            String in = host + "/rest/api/3/project";
+            String response = rc.authenticatedAsAddon().getForObject(in , String.class);
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -108,9 +120,17 @@ public class RestService {
     }
 
     public String getUsersInProjectByRol(String host, String project, String rol){
+        // en este
         try {
-            ProjectRole response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/project/"+ project+ "/role/" + rol, ProjectRole.class);
+            String in = host + "/rest/api/3/project/"+ project+ "/role/" + rol;
+            ProjectRole response;
 
+            if (cacheService.existe(in)){
+                response = (ProjectRole)cacheService.get(in);
+            }else {
+                response = rc.authenticatedAsAddon().getForObject(host + "/rest/api/3/project/"+ project+ "/role/" + rol, ProjectRole.class);
+                cacheService.add(in,response);// puedo qe haya errores con esto
+            }
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
             mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);

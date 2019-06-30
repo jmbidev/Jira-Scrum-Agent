@@ -4,16 +4,18 @@ import application.json.Issue;
 import application.json.Project;
 import application.json.ProjectRole;
 import application.services.CurrentUserService;
+import application.services.RequestService;
 import application.services.RestService;
 
+import com.atlassian.connect.spring.IgnoreJwt;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class EventsController {
 
     @Autowired
     CurrentUserService currentUserService;
+
+    @Autowired
+    RequestService requestService;
 
     @RequestMapping(value = "/webhooks/issue", consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity issue(@RequestBody String body){
@@ -46,6 +51,8 @@ public class EventsController {
             mapped += restService.getAllProjectsRoles(issue.getHost());
             mapped += "}";
             System.out.println(mapped);
+            String url = "http://localhost:8080/event/update-issue";
+            System.out.println(requestService.sendRequest(url, body));
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -57,6 +64,8 @@ public class EventsController {
     public ResponseEntity project(@RequestBody String body) {
         System.out.println("Estoy en project");
         System.out.println(body);
+        String url = "http://localhost:8080/event/create-project";
+        System.out.println(requestService.sendRequest(url,body));
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
@@ -73,6 +82,9 @@ public class EventsController {
     public ResponseEntity sprint(@RequestBody String body) {
         System.out.println("Estoy en sprint");
         System.out.println(body);
+        String url = "http://localhost:8080/event/create-sprint";
+        System.out.println(requestService.sendRequest(url,body));
+
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
