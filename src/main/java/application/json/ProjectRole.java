@@ -20,7 +20,7 @@ public class ProjectRole {
     private String id;
     private String name;
     private String description;
-    private List<Actor> roleActors;
+    private List<Actor> actors;
 
     public String getSelf() {
         return self;
@@ -55,12 +55,10 @@ public class ProjectRole {
     }
 
     public List<Actor> getActors() {
-        return roleActors;
+        return actors;
     }
 
     public void setActors(List<Actor> actors) {
-        this.roleActors = actors;
+        this.actors = actors;
     }
-
-
 }

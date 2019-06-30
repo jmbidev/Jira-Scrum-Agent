@@ -9,19 +9,12 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-    @JsonProperty("self")
     private String self;
-    @JsonProperty("key")
     private String key;
-    @JsonProperty("accountId")
     private String accountId;
-    @JsonProperty("accountType")
     private String accountType;
-    @JsonProperty("name")
     private String name;
-    @JsonProperty("emailAddress")
     private String emailAddress;
-    @JsonProperty("displayName")
     private String displayName;
 
 
@@ -80,4 +73,6 @@ public class User {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+
 }

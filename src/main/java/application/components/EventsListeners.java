@@ -1,6 +1,7 @@
 package application.components;
 
 import application.json.Project;
+import application.services.RequestService;
 import application.services.RestService;
 import com.atlassian.connect.spring.AddonInstalledEvent;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -16,6 +17,9 @@ import java.util.List;
 public class EventsListeners {
     @Autowired
     RestService rs;
+
+    @Autowired
+    RequestService requestService;
 
     @EventListener
     public void addonInstalled(AddonInstalledEvent event) {
@@ -38,12 +42,15 @@ public class EventsListeners {
         projectsAndRoles += allProjectsRolesData;
         projectsAndRoles += "}";
 
-        System.out.println(projectsAndRoles);
+        //System.out.println(projectsAndRoles);
+
+        String url = "http://localhost:8080/event/initialize-projects";
+        System.out.println(requestService.sendRequest(url,projectsAndRoles));
 
         String issues = rs.getAllIssues(event.getHost().getBaseUrl());
-        System.out.println(issues);
+        //System.out.println(issues);
 
-
-
+        url = "http://localhost:8080/event/initialize-issues";
+        System.out.println(requestService.sendRequest(url,issues));
     }
 }
