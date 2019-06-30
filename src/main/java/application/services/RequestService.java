@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
 
 @Service
 public class RequestService {
@@ -17,10 +18,15 @@ public class RequestService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
         HttpEntity<String> entity = new HttpEntity<String>(body, headers);
         String answer = restTemplate.postForObject(url, entity, String.class);
         return answer;
     }
 
+    public String sendGetRequest(String url){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response
+                = restTemplate.getForEntity(url , String.class);
+        return response.getBody();
+    }
 }
