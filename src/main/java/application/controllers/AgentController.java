@@ -55,6 +55,9 @@ public class AgentController {
         try {
             issues = mapper.readValue(responseIssues, mapper.getTypeFactory().constructCollectionType(List.class, IssueResponse.class));
             users = mapper.readValue(responseUsers, mapper.getTypeFactory().constructCollectionType(List.class, UsuarioResponse.class));
+            for (UsuarioResponse user : users){
+                user.setRol((user.getRol().toLowerCase().equals("administrator"))? "Scrum Master" : "Developer");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,7 +99,7 @@ public class AgentController {
     public ResponseEntity checkUserRol() {
         System.out.println("Estoy en agent/check-user-role");
 
-        String responseRol = requestService.sendGetRequest("http://localhost:8080/data/check-role/" + currentUserService.getUser().getUserAccountId() + "/");
+        String responseRol = requestService.sendGetRequest("http://localhost:8080/data/check-role/" + currentUserService.getUser().getUserAccountId().get() + "/");
 
         System.out.println(responseRol);
 
@@ -115,9 +118,9 @@ public class AgentController {
         }
 
 
-        if ((rolResponse.getRol().toLowerCase() == "administrator") || (rolResponse.getRol().toLowerCase() == "administrators"))
+        if ((rolResponse.getRol().toLowerCase().equals("administrator")) || (rolResponse.getRol().toLowerCase().equals("administrators")))
             rolResponse.setRol("scrum master");
-        if (rolResponse.getRol().toLowerCase() == "member")
+        if (rolResponse.getRol().toLowerCase().equals("member"))
             rolResponse.setRol("developer");
 
 
@@ -128,7 +131,7 @@ public class AgentController {
     @IgnoreJwt
     public ResponseEntity showIssues() {
         System.out.println("Estoy en agent/show-issues");
-        String response = requestService.sendGetRequest("http://localhost:8080/data/my-issues-not-evaluated/" + currentUserService.getUser().getUserAccountId());
+        String response = requestService.sendGetRequest("http://localhost:8080/data/my-issues-not-evaluated/" + currentUserService.getUser().getUserAccountId().get());
 
         System.out.println(response);
 

@@ -26,7 +26,6 @@ public class Issue {
     private String projectName;
     private String timeSpent;
     private String aggregateTimeSpent;
-    private String resolution;
     private String resolutionDate;
     private String createdDateTime;
     private String priorityId;
@@ -90,7 +89,6 @@ public class Issue {
         if (fields.get("timespent") != null)
             this.timeSpent = fields.get("timespent").toString();
         this.aggregateTimeSpent = (String)fields.get("aggregateTimeSpent");
-        this.resolution = (String)fields.get("resolution");
         this.resolutionDate = (String)fields.get("resolutiondate");
         this.createdDateTime = (String)fields.get("created");
         Map<String,Object> priority = (Map<String,Object>)fields.get("priority");
@@ -348,14 +346,6 @@ public class Issue {
 
     public void setAggregateTimeSpent(String aggregateTimeSpent) {
         this.aggregateTimeSpent = aggregateTimeSpent;
-    }
-
-    public String getResolution() {
-        return resolution;
-    }
-
-    public void setResolution(String resolution) {
-        this.resolution = resolution;
     }
 
     public String getResolutionDate() {

@@ -114,9 +114,10 @@ public class Agent {
         else
             puntajeStoryPoints = 1;
 
-
+        Integer diasEstimados1 = (issue.getDiasEstimados() != null) ? issue.getDiasEstimados() : 0;
+        Integer diasEstimados2 = (issueHistorica.getDiasEstimados() != null) ? issueHistorica.getDiasEstimados() : 0;
         /** Time Estimate **/
-        if (Math.abs(issue.getDiasEstimados() - issueHistorica.getDiasEstimados()) < 2) //si el timeEstimate es menor a 2 dias, se suma el puntaje
+        if (Math.abs(diasEstimados1 - diasEstimados2) < (8 * 60 * 60)) //si el timeEstimate es menor a 2 dias, se suma el puntaje
             puntajeTimeEstimate = 1;
 
 
